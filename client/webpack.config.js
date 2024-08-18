@@ -12,6 +12,7 @@ module.exports = {
   },
   resolve: { extensions },
   devServer: {
+    historyApiFallback: true,
     client: {
       overlay: false,
     },

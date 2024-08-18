@@ -1,153 +1,188 @@
-html {
-  font-size: 10px;
-  font-family: sans-serif;
-}
+/* src/index.css */
 
-* {
+/* Global Styles */
+body {
   margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
 }
 
-#App {
+/* Header Styles */
+.header {
   width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  --primary-color: #1266cc;
-  --secondary-color: #f96400;
-  --flash-color: rgb(89, 255, 0);
-  --gray: #999;
-  --light-gray: #e0e0e0;
-  --dark-gray: #777;
-}
-
-#App .container {
-  width: 40%;
-  min-width: 60rem;
-  max-width: 75rem;
-  height: 100%;
-}
-
-code {
-  display: block;
-  white-space: pre-wrap;
-  padding: 1.2rem 2rem;
-  border-radius: 1rem;
-  background-color: var(--light-gray);
-  font-size: 1.4rem;
-}
-
-code span {
-  transition: all 0.3s;
-}
-
-code span.primary-color {
-  color: var(--primary-color);
-}
-
-code span.secondary-color {
-  color: var(--secondary-color);
-}
-
-code span.dim-color {
-  color: var(--gray);
-}
-
-code span.flash {
-  background-color: var(--flash-color);
-}
-
-details {
-  margin: 1.6rem 0;
-  padding: 0.5rem 2rem 0.5rem 0;
-  border: 1px solid var(--light-gray);
-  border-radius: 1rem;
-}
-
-details :not(summary, span) {
-  margin-left: 2.55rem;
-}
-
-details summary {
-  padding: 1.2rem;
-  cursor: pointer;
-}
-
-p,
-details code {
-  margin-top: 1rem;
-  margin-bottom: 1.4rem;
-}
-
-p {
-  line-height: 2.6rem;
-}
-
-p span.code {
-  font-family: monospace;
-  color: var(--gray);
-}
-
-hr {
-  margin: 4rem 0;
-}
-
-#App .container .welcome h1 {
-  padding-top: 7.5rem;
-  font-size: 2.6rem;
-}
-
-#App .container .demo .contract-container {
-  display: flex;
-}
-
-#App .container .demo .contract-container code {
-  min-width: 42rem;
-  border-radius: 1rem 0 0 1rem;
-}
-
-#App .container .demo .contract-container .btns {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 0 1rem;
-  background-color: var(--gray);
-  border-radius: 0 1rem 1rem 0;
-}
-
-#App .container .demo .contract-container .btns > * {
-  width: 12rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #fff;
   padding: 1rem 0;
-  background-color: var(--light-gray);
-  border: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0px 4px 2px -2px gray;
+  z-index: 1000;
+}
+
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.nav-item {
+  color: #808080;
+  text-decoration: none;
   font-size: 1.2rem;
-  font-family: monospace;
-  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s, background-color 0.3s;
 }
 
-#App .container .demo .contract-container .btns > *:hover {
-  background-color: var(--dark-gray);
+.nav-item:hover {
+  color: #007BFF;
+  background-color: #f0f0f0;
 }
 
-#App .container .demo .contract-container .btns .input-btn input {
-  width: 4rem;
+/* Home Page Styles */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80vh;
+  padding: 0 5rem;
+}
+
+.text-container {
+  max-width: 50%;
+}
+
+.title {
+  color: #007BFF;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.image-container {
+  max-width: 40%;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Login Styles */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto; /* Centers the login panel */
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   text-align: center;
-  font-family: monospace;
+}
+
+.login-title {
+  font-size: 2rem;
+  color: #007BFF; /* Primary blue color */
+  margin-bottom: 1.5rem;
+}
+
+.login-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.login-form label {
+  display: block;
+  font-size: 1rem;
+  color: #333333;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.login-form .form-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.login-form .form-input:focus {
+  border-color: #007BFF; /* Blue border on focus */
+  outline: none;
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
   font-size: 1.2rem;
+  color: #ffffff;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-#App .container footer {
-  padding-bottom: 7.5rem;
+.login-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
-#App .container footer a {
-  display: inline-block;
-  margin: 2rem 1rem 0 0;
+/* Add product css */
+.add-product-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.add-product-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+h2 {
+  text-align: center;
+  color: #0066ff;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #0052cc;
 }

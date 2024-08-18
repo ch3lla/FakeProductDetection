@@ -5,15 +5,19 @@ contract FakeProductDetection {
     address public owner;
     bool public paused = false; // pause and resume contracts
 
+    enum Role { None, Manufacturer, Retailer, Moderator }
+
     struct Product {
         bytes32 id;
         bytes32 serialNumber;
         string name;
         address manufacturer;
+        string qrCodeHash;
         uint256 productionDate;
         bool isGenuine;
     }
 
+    mapping(address => Role) public roles;
     mapping(bytes32 => uint256) private productIndices; // Maps serial number to index in productsList
     mapping(bytes32 => uint256) public productExpiryDates;
     mapping(bytes32 => bool) public lockedProducts; // for emergency product lockdown
@@ -28,6 +32,22 @@ contract FakeProductDetection {
 
     constructor(){
         owner = msg.sender;
+        roles[msg.sender] = Role.Manufacturer;
+    }
+
+    modifier onlyManufacturer() {
+        require(roles[msg.sender] == Role.Manufacturer, "Only manufacturer can perform this action");
+        _;
+    }
+    
+    modifier onlyRetailer() {
+        require(roles[msg.sender] == Role.Retailer, "Only retailer can perform this action");
+        _;
+    }
+    
+    modifier onlyModerator() {
+        require(roles[msg.sender] == Role.Moderator, "Only moderator can perform this action");
+        _;
     }
 
     modifier onlyOwner(){
@@ -46,7 +66,7 @@ contract FakeProductDetection {
         _;
     }
 
-    function registerProduct(bytes32 _serialNumber, uint256 _prodDate, string memory _prodName) external {
+    function registerProduct(bytes32 _serialNumber, uint256 _prodDate, string memory _prodName, string memory _qrCodeHash) external onlyManufacturer {
         require(productIndices[_serialNumber] == 0, "Product has been registered.");
 
         // Generate a unique ID using keccak256 hash
@@ -57,6 +77,7 @@ contract FakeProductDetection {
             serialNumber: _serialNumber,
             name: _prodName,
             manufacturer: msg.sender,
+            qrCodeHash: _qrCodeHash,
             productionDate: _prodDate,
             isGenuine: true
         });
@@ -80,18 +101,18 @@ contract FakeProductDetection {
         return productsList[productIndices[_serialNumber] - 1].isGenuine;
     }
 
-    function updateProduct(bytes32 _serialNumber, string memory _prodName) external onlyOwner productExists(_serialNumber) {
+    function updateProduct(bytes32 _serialNumber, string memory _prodName) external onlyOwner onlyManufacturer() productExists(_serialNumber) {
         require(bytes(_prodName).length > 0, "Product Title must not be empty");
 
         productsList[productIndices[_serialNumber] - 1].name = _prodName;
         emit ProductUpdated(_serialNumber, _prodName);
     }
 
-    function markProductAsCounterfeit(bytes32 _serialNumber) external productExists(_serialNumber){
+    function markProductAsCounterfeit(bytes32 _serialNumber) external productExists(_serialNumber) onlyModerator{
         productsList[productIndices[_serialNumber] - 1].isGenuine = false;
     }
 
-    function removeProduct(bytes32 _serialNumber) external onlyOwner productExists(_serialNumber) {
+    function removeProduct(bytes32 _serialNumber) external onlyOwner onlyManufacturer productExists(_serialNumber) {
 
         // move last element to index of product to be removed
         Product memory lastProduct = productsList[productsList.length - 1];
